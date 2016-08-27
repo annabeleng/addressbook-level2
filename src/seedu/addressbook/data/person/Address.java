@@ -8,7 +8,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Address {
 
-    public static final String EXAMPLE = "123, some street";
+    public static final String EXAMPLE = "block, some street, unit number, postalcode";
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
 
@@ -31,18 +31,26 @@ public class Address {
  
         this.isPrivate = isPrivate;
         this.block = new Block(blockName);
-        this.street = new Street(blockName);
-        this.unit = new Unit(blockName);
-        this.postal = new Postal(blockName);
+        this.street = new Street(streetName);
+        this.unit = new Unit(unitName);
+        this.postal = new Postal(postalName);
         this.value = block.getName()+" ,"+street.getName()+" ,"+unit.getName()+" ,"+postal.getName();
         
     }
 
+   /* public Address(String value, boolean isPrivate) {
+        String[] fullAddress = value.split("'");
+        this.block = new Block(fullAddress[0]);
+        this.street = new Street(fullAddress[1]);
+        this.unit = new Unit(fullAddress[2]);
+        this.postal = new Postal(fullAddress[3]);
+        
+    } */
 
 
     @Override
     public String toString() {
-        String fullAddress = block.getName() + street.getName() + unit.getName() + postal.getName();
+        String fullAddress = block.getName() + ", "+ street.getName() +", " + unit.getName() + ", " + postal.getName();
         return fullAddress;
     }
 
@@ -58,7 +66,7 @@ public class Address {
 
     @Override
     public int hashCode() {
-        return block.hashCode()+street.hashCode()+unit.hashCode()+postal.hashCode();
+        return value.hashCode();
     }
     
     public Block getBlock() {

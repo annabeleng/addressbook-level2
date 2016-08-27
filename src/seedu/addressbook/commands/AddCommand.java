@@ -39,10 +39,12 @@ public class AddCommand extends Command {
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         String[] fullAddress = address.split(",");
+
         String blockName = fullAddress[0];
         String streetName = fullAddress[1];
         String unitName = fullAddress[2];
         String postalName = fullAddress[3];
+
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
