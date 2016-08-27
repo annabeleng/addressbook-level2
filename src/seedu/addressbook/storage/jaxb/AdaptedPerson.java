@@ -93,6 +93,11 @@ public class AdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
+        String[] fullAddress = this.address.value.split(",");
+        String blockName = fullAddress[0];
+        String streetName = fullAddress[1];
+        String unitName = fullAddress[2];
+        String postalName = fullAddress[3];
         final List<Tag> personTags = new ArrayList<>();
         for (AdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -100,7 +105,7 @@ public class AdaptedPerson {
         final Name name = new Name(this.name);
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
-        final Address address = new Address(this.address.value, this.address.isPrivate);
+        final Address address = new Address(blockName,streetName,unitName,postalName, this.address.isPrivate);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Person(name, phone, email, address, tags);
     }
